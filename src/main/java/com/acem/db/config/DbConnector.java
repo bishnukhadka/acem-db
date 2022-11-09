@@ -2,6 +2,7 @@ package com.acem.db.config;
 
 import com.acem.db.credential.DbCredential;
 import com.acem.db.credential.impl.DbCredentialDotEnvImpl;
+import com.acem.db.credential.impl.DbCredentialFileImpl;
 import com.acem.db.mapper.RowMapper;
 
 import java.sql.Connection;
@@ -22,10 +23,11 @@ public class DbConnector {
     }
 
     public DbConnector() {
-        this.dbCredential = new DbCredentialDotEnvImpl();
+        this.dbCredential = new DbCredentialFileImpl();
     }
 
     public void connect() throws Exception {
+        System.out.println(dbCredential.getUsername());
         String url = "jdbc:mysql://" + dbCredential.getIpAddress() + ":" + dbCredential.getPort() + "/" + dbCredential.getName();
         url += "?useSSL=false&allowPublicKeyRetrieval=true";
         Class.forName("com.mysql.cj.jdbc.Driver");
