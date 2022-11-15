@@ -26,10 +26,11 @@ public class DbConnector {
     }
 
     public void connect() throws Exception {
+        System.out.println(dbCredential.getUsername());
         String url = "jdbc:mysql://" + dbCredential.getIpAddress() + ":" + dbCredential.getPort() + "/" + dbCredential.getName();
         url += "?useSSL=false&allowPublicKeyRetrieval=true";
         Class.forName("com.mysql.cj.jdbc.Driver");
-        connection = DriverManager.getConnection(url, dbCredential.getUsername(), dbCredential.getPassword());
+        connection = DriverManager.getConnection(url, "root", "Electron@2020");
     }
 
     public void init(String sql) throws Exception {
