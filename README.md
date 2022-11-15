@@ -32,3 +32,15 @@ PASSWORD=<YOUR_PASSWORD>
 mvn clean package && java -jar payara-micro.jar --deploy target/*.war --nocluster
 
 ```
+
+> Postman collection link: https://www.getpostman.com/collections/d6ac7c9e1ceae06c3921
+
+## JPA
+
+http://www.mastertheboss.com/hibernate-jpa/jpa-configuration/jpa-vs-hibernate-in-a-nutshell/
+
+> hibernate.cfg.xml is for Hibernate; 
+
+> persistence.xml is for JPA.
+ 
+> If you do Hibernate without JPA, you don't need the latter. If you do JPA, you have to have a provider implementation, which means Hibernate, EclipseLink, etc. (There may be other legit JPA implementations, but I don't have time to check right now.)

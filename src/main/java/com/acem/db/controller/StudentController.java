@@ -1,48 +1,106 @@
 package com.acem.db.controller;
 
-import com.acem.db.dao.StudentDao;
-import com.acem.db.dao.impl.StudentDaoMySqlImpl;
+import com.acem.db.builder.ResponseBuilder;
+import com.acem.db.constant.RegexConstant;
 import com.acem.db.exception.ExceptionHandler;
-import com.acem.db.model.Student;
-import com.acem.db.utils.JacksonUtil;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.acem.db.request.StudentSaveRequest;
+import com.acem.db.request.StudentUpdateRequest;
+import com.acem.db.request.mapper.StudentMapperUtil;
+import com.acem.db.response.Response;
+import com.acem.db.service.StudentService;
+import com.acem.db.service.impl.StudentServiceImpl;
+import com.acem.db.utils.InputStreamMapperUtil;
+import com.acem.db.utils.ValidationUtil;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import java.util.Optional;
 
-public class StudentController extends HttpServlet {
 
-    private final StudentDao studentDao = new StudentDaoMySqlImpl();
+public class StudentController extends Controller {
+
+    private static final StudentService studentService = new StudentServiceImpl();
 
     @Override
-    public void init() throws ServletException {
-        System.out.println("Student Controller init called");
-        super.init();
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+        ExceptionHandler.handleWithFallBack(
+                () -> {
+                    String url = request.getRequestURL().toString();
+                    String[] urlTokenized = url.split("/");
+                    String id = urlTokenized[urlTokenized.length - 1];
+                    Response responseBody = null;
+                    if (id.matches(RegexConstant.isNumber)) {
+                        responseBody = studentService.getById(Long.parseLong(id));
+                    } else {
+                        responseBody = studentService.getAll();
+                    }
+                    buildResponse(response, responseBody);
+                },
+                () -> buildResponse(response, ResponseBuilder.serverError())
+        );
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
-        PrintWriter writer = response.getWriter();
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ExceptionHandler.handleWithFallBack(
+                () -> {
+                    StudentSaveRequest studentSaveRequest = InputStreamMapperUtil
+                            .mapToObject(request.getInputStream(), StudentSaveRequest.class);
 
-        Optional<List<Student>> optionalStudentList = studentDao.getAll();
-        if (optionalStudentList.isPresent() && !optionalStudentList.isEmpty()) {
-            List<Student> students = optionalStudentList.get();
-            response.setContentType("application/json");
-            response.setStatus(200);
-            String responseBody = JacksonUtil.toJson(students);
-            if (responseBody != null) {
-                writer.write(responseBody);
-            } else {
-                response.setStatus(500);
-            }
-        } else {
-            response.setStatus(404);
-        }
+                    Optional<List<String>> violations = ValidationUtil.validate(studentSaveRequest);
+
+                    Response responseBody = null;
+                    if (!violations.isPresent()) {
+                        responseBody = ResponseBuilder.validationFailed(violations.get());
+                    } else {
+                        responseBody = studentService.save(StudentMapperUtil.mapStudent(studentSaveRequest));
+                    }
+                    buildResponse(response, responseBody);
+                },
+                () -> buildResponse(response, ResponseBuilder.serverError())
+        );
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ExceptionHandler.handleWithFallBack(
+                () -> {
+                    StudentUpdateRequest studentUpdateRequest = InputStreamMapperUtil
+                            .mapToObject(request.getInputStream(), StudentUpdateRequest.class);
+
+                    Optional<List<String>> violations = ValidationUtil.validate(studentUpdateRequest);
+
+                    Response responseBody = null;
+                    if (!violations.isPresent()) {
+                        responseBody = ResponseBuilder.validationFailed(violations.get());
+                    } else {
+                        responseBody = studentService.update(StudentMapperUtil.mapStudent(studentUpdateRequest));
+                    }
+                    buildResponse(response, responseBody);
+                },
+                () -> buildResponse(response, ResponseBuilder.serverError())
+        );
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ExceptionHandler.handleWithFallBack(
+                () -> {
+                    String url = request.getRequestURL().toString();
+                    String[] urlTokenized = url.split("/");
+                    String id = urlTokenized[urlTokenized.length - 1];
+                    Response responseBody = null;
+                    if (id.matches(RegexConstant.isNumber)) {
+                        responseBody = studentService.delete(Long.parseLong(id));
+                    } else {
+                        responseBody = ResponseBuilder.invalidPathParameter();
+                    }
+                    buildResponse(response, responseBody);
+                },
+                () -> buildResponse(response, ResponseBuilder.serverError())
+        );
     }
 }

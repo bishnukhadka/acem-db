@@ -6,6 +6,7 @@ import com.acem.db.model.Student;
 import java.sql.ResultSet;
 
 public class StudentRowMapperImpl implements RowMapper<Student> {
+
     @Override
     public Student map(ResultSet resultSet) throws Exception{
         Student student = new Student();

@@ -43,12 +43,25 @@ public class ExceptionHandler {
         }
     }
 
-    public static <T> T handleWithFallBack(ReturnableStatementWrapper<T> tryWrapper, T fallBackObject) {
+    public static <T> T handleReturnableWithFallBack(ReturnableStatementWrapper<T> tryWrapper, T fallBackObject) {
         try {
             return tryWrapper.execute();
         } catch (Exception ex) {
             System.out.println("Exception: " + ex);
             return fallBackObject;
+        }
+    }
+
+    public static void handleWithFallBack(StatementWrapper tryWrapper, StatementWrapper fallBackObject) {
+        try {
+            tryWrapper.execute();
+        } catch (Exception ex) {
+            System.out.println("Exception: " + ex);
+            try {
+                fallBackObject.execute();
+            } catch (Exception ex2) {
+                System.out.println("Exception: " + ex2);
+            }
         }
     }
 
@@ -65,7 +78,7 @@ public class ExceptionHandler {
         }
     }
 
-    public <T> T handle(ReturnableStatementWrapper<T> returnableStatementWrapper, T fallBackObject) {
+    public static <T> T handle(ReturnableStatementWrapper<T> returnableStatementWrapper, T fallBackObject) {
         try {
             return returnableStatementWrapper.execute();
         } catch (Exception ex) {
