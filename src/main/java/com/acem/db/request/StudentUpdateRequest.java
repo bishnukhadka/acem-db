@@ -4,7 +4,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 public class StudentUpdateRequest {
-    @NotBlank
+
     private Long id;
     @NotBlank
     private String name;

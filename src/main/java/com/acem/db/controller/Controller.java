@@ -1,6 +1,5 @@
 package com.acem.db.controller;
 
-import com.acem.db.dao.impl.StudentDaoHibernateImpl;
 import com.acem.db.response.Response;
 import com.acem.db.utils.JacksonUtil;
 

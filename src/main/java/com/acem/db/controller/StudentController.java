@@ -53,7 +53,7 @@ public class StudentController extends Controller {
                     Optional<List<String>> violations = ValidationUtil.validate(studentSaveRequest);
 
                     Response responseBody = null;
-                    if (!violations.isPresent()) {
+                    if (violations.isPresent()) {
                         responseBody = ResponseBuilder.validationFailed(violations.get());
                     } else {
                         responseBody = studentService.save(StudentMapperUtil.mapStudent(studentSaveRequest));
@@ -74,7 +74,7 @@ public class StudentController extends Controller {
                     Optional<List<String>> violations = ValidationUtil.validate(studentUpdateRequest);
 
                     Response responseBody = null;
-                    if (!violations.isPresent()) {
+                    if (violations.isPresent()) {
                         responseBody = ResponseBuilder.validationFailed(violations.get());
                     } else {
                         responseBody = studentService.update(StudentMapperUtil.mapStudent(studentUpdateRequest));

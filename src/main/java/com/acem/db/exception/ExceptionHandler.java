@@ -86,4 +86,18 @@ public class ExceptionHandler {
             return fallBackObject;
         }
     }
+
+    public static <T> T handleWithFallBack(ReturnableStatementWrapper<T> returnableStatementWrapper, ReturnableStatementWrapper<T> fallbackWrapper) {
+        try {
+            return returnableStatementWrapper.execute();
+        } catch (Exception ex) {
+            System.out.println("Exception: " + ex);
+            try {
+                return fallbackWrapper.execute();
+            } catch (Exception ex2) {
+                System.out.println("Exception: " + ex2);
+                return null;
+            }
+        }
+    }
 }
