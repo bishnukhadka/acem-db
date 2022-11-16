@@ -1,6 +1,7 @@
 package com.acem.db.utils;
 
-import javax.servlet.ServletInputStream;
+
+import jakarta.servlet.ServletInputStream;
 
 public class InputStreamMapperUtil {
 

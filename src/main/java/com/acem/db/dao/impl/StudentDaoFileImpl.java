@@ -2,6 +2,7 @@ package com.acem.db.dao.impl;
 
 import com.acem.db.dao.StudentDao;
 import com.acem.db.model.Student;
+import jakarta.inject.Singleton;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.StringTokenizer;
 import java.util.stream.Collectors;
-
+//@Singleton
 public class StudentDaoFileImpl implements StudentDao {
 
     private List<Student> studentList = new ArrayList<>();

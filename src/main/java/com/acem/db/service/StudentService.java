@@ -2,7 +2,7 @@ package com.acem.db.service;
 
 import com.acem.db.model.Student;
 import com.acem.db.response.Response;
-
+import jakarta.inject.Singleton;
 
 public interface StudentService {
 

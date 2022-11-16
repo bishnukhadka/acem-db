@@ -8,13 +8,17 @@ import com.acem.db.dao.impl.StudentDaoMySqlImpl;
 import com.acem.db.model.Student;
 import com.acem.db.response.Response;
 import com.acem.db.service.StudentService;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 
 import java.util.List;
 import java.util.Optional;
 
+@Singleton
 public class StudentServiceImpl implements StudentService {
 
-    private static final StudentDao studentDao = new StudentDaoHibernateImpl();
+    @Inject
+    private StudentDao studentDao;
 
     @Override
     public Response getAll() {

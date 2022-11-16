@@ -8,13 +8,13 @@ import com.acem.db.request.StudentUpdateRequest;
 import com.acem.db.request.mapper.StudentMapperUtil;
 import com.acem.db.response.Response;
 import com.acem.db.service.StudentService;
-import com.acem.db.service.impl.StudentServiceImpl;
 import com.acem.db.utils.InputStreamMapperUtil;
 import com.acem.db.utils.ValidationUtil;
+import jakarta.inject.Inject;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -22,10 +22,13 @@ import java.util.Optional;
 
 public class StudentController extends Controller {
 
-    private static final StudentService studentService = new StudentServiceImpl();
+    @Inject
+    private StudentService studentService;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+        System.out.println(studentService);
+
         ExceptionHandler.handleWithFallBack(
                 () -> {
                     String url = request.getRequestURL().toString();

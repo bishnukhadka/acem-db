@@ -2,6 +2,7 @@ package com.acem.db.dao.impl;
 
 import com.acem.db.dao.StudentDao;
 import com.acem.db.model.Student;
+import jakarta.inject.Singleton;
 
 import java.util.ArrayList;
 import java.util.List;
