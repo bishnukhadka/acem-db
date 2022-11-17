@@ -2,13 +2,14 @@ package com.acem.db.dao.impl;
 
 import com.acem.db.dao.StudentDao;
 import com.acem.db.model.Student;
+import jakarta.enterprise.inject.Alternative;
 import jakarta.inject.Singleton;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
+@Singleton @Alternative
 public class StudentDaoMemoryImpl implements StudentDao {
 
     private List<Student> studentList = new ArrayList<>();

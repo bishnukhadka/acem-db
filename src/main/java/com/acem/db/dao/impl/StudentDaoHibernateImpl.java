@@ -3,16 +3,14 @@ package com.acem.db.dao.impl;
 import com.acem.db.dao.StudentDao;
 import com.acem.db.exception.ExceptionHandler;
 import com.acem.db.model.Student;
-import com.acem.db.utils.JacksonUtil;
-import jakarta.enterprise.inject.Default;
 import jakarta.inject.Singleton;
 import jakarta.persistence.*;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
-
 import java.util.List;
 import java.util.Optional;
+
 
 @Singleton
 public class StudentDaoHibernateImpl implements StudentDao {
@@ -104,7 +102,5 @@ public class StudentDaoHibernateImpl implements StudentDao {
             entityTransaction.rollback();
             return false;
         });
-
     }
-
 }

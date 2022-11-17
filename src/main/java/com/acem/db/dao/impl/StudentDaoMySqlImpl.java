@@ -6,10 +6,12 @@ import com.acem.db.exception.ExceptionHandler;
 import com.acem.db.mapper.impl.StudentRowMapperImpl;
 import com.acem.db.model.Student;
 import com.acem.db.config.JdbcTemplate;
+import jakarta.enterprise.inject.Alternative;
 import jakarta.inject.Singleton;
 
 import java.util.List;
 import java.util.Optional;
+@Singleton @Alternative
 public class StudentDaoMySqlImpl implements StudentDao {
     @Override
     public Optional<List<Student>> getAll() {

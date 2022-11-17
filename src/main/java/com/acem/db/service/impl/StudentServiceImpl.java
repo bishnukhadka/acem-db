@@ -10,6 +10,7 @@ import com.acem.db.response.Response;
 import com.acem.db.service.StudentService;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
+import org.hibernate.annotations.Target;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +23,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Response getAll() {
+        System.out.println(studentDao);
         Optional<List<Student>> optionalStudentList = studentDao.getAll();
         Response responseBody = null;
         if (optionalStudentList.isPresent()) {
