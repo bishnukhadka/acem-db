@@ -2,17 +2,19 @@ package com.acem.db.dao.impl;
 
 import com.acem.db.constant.DbQueryConstant;
 import com.acem.db.dao.StudentDao;
+import com.acem.db.dao.qualifier.DataSource;
+import com.acem.db.dao.qualifier.DatasourceType;
 import com.acem.db.exception.ExceptionHandler;
 import com.acem.db.mapper.impl.StudentRowMapperImpl;
 import com.acem.db.model.Student;
 import com.acem.db.config.JdbcTemplate;
-import jakarta.enterprise.inject.Alternative;
 import jakarta.inject.Singleton;
 
 import java.util.List;
 import java.util.Optional;
-@Singleton @Alternative
-public class StudentDaoMySqlImpl implements StudentDao {
+@Singleton
+@DataSource(DatasourceType.JDBC_TEMPLATE)
+public class StudentDaoJdbcTemplateImpl implements StudentDao {
     @Override
     public Optional<List<Student>> getAll() {
         return JdbcTemplate.process((connection) -> ExceptionHandler.handle(

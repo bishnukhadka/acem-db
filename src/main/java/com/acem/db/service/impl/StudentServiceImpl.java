@@ -3,14 +3,13 @@ package com.acem.db.service.impl;
 import com.acem.db.builder.ResponseBuilder;
 import com.acem.db.constant.ResponseMessageConstant;
 import com.acem.db.dao.StudentDao;
-import com.acem.db.dao.impl.StudentDaoHibernateImpl;
-import com.acem.db.dao.impl.StudentDaoMySqlImpl;
+import com.acem.db.dao.qualifier.DataSource;
+import com.acem.db.dao.qualifier.DatasourceType;
 import com.acem.db.model.Student;
 import com.acem.db.response.Response;
 import com.acem.db.service.StudentService;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
-import org.hibernate.annotations.Target;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +18,7 @@ import java.util.Optional;
 public class StudentServiceImpl implements StudentService {
 
     @Inject
+    @DataSource(DatasourceType.HIBERNATE)
     private StudentDao studentDao;
 
     @Override

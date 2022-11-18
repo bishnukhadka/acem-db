@@ -44,3 +44,19 @@ http://www.mastertheboss.com/hibernate-jpa/jpa-configuration/jpa-vs-hibernate-in
 > persistence.xml is for JPA.
  
 > If you do Hibernate without JPA, you don't need the latter. If you do JPA, you have to have a provider implementation, which means Hibernate, EclipseLink, etc. (There may be other legit JPA implementations, but I don't have time to check right now.)
+
+
+## Errors
+localhost:4848 already running error. 
+Then in terminal(for windows): 
+````
+netstat -aon 
+taskkill \f \pid <pid of the process using port no. 4848>
+````
+
+Class name is wrong or classpath is not set for : com.mysql.cj.jdbc.MysqlDataSource 
+```
+Download the MySQL JDBC driver from https://dev.mysql.com/downloads/connector/j/, 
+then add the jar to Payara Server's GlassFish\lib folder
+```
+

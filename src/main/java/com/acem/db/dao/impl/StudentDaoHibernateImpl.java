@@ -1,6 +1,8 @@
 package com.acem.db.dao.impl;
 
 import com.acem.db.dao.StudentDao;
+import com.acem.db.dao.qualifier.DataSource;
+import com.acem.db.dao.qualifier.DatasourceType;
 import com.acem.db.exception.ExceptionHandler;
 import com.acem.db.model.Student;
 import jakarta.inject.Singleton;
@@ -13,6 +15,7 @@ import java.util.Optional;
 
 
 @Singleton
+@DataSource(DatasourceType.HIBERNATE)
 public class StudentDaoHibernateImpl implements StudentDao {
 
     private static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("collegePersistenceUnit");
