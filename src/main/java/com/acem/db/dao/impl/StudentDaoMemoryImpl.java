@@ -1,19 +1,19 @@
 package com.acem.db.dao.impl;
 
-import com.acem.db.dao.StudentDao;
+import com.acem.db.dao.StudentDAO;
 import com.acem.db.dao.qualifier.DataSource;
 import com.acem.db.dao.qualifier.DatasourceType;
 import com.acem.db.model.Student;
-import jakarta.enterprise.inject.Alternative;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Singleton;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-@Singleton
+@ApplicationScoped
 @DataSource(DatasourceType.MEMORY)
-public class StudentDaoMemoryImpl implements StudentDao {
+public class StudentDaoMemoryImpl implements StudentDAO {
 
     private List<Student> studentList = new ArrayList<>();
 

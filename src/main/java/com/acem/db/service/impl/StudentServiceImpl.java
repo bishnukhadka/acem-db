@@ -2,7 +2,7 @@ package com.acem.db.service.impl;
 
 import com.acem.db.builder.ResponseBuilder;
 import com.acem.db.constant.ResponseMessageConstant;
-import com.acem.db.dao.StudentDao;
+import com.acem.db.dao.StudentDAO;
 import com.acem.db.dao.qualifier.DataSource;
 import com.acem.db.dao.qualifier.DatasourceType;
 import com.acem.db.model.Student;
@@ -18,8 +18,8 @@ import java.util.Optional;
 public class StudentServiceImpl implements StudentService {
 
     @Inject
-    @DataSource(DatasourceType.HIBERNATE)
-    private StudentDao studentDao;
+    @DataSource(DatasourceType.GENERIC_HIBERNATE)
+    private StudentDAO studentDao;
 
     @Override
     public Response getAll() {
